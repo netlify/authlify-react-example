@@ -10,7 +10,7 @@
   "author": "",
   "license": "MIT",
   "dependencies": {
-    "authlify-js": "^0.1.0",
+    "authlify-js": "^0.2.0",
     "babel-core": "^6.5.1",
     "babel-loader": "^6.2.2",
     "babel-plugin-transform-class-properties": "^6.5.2",
