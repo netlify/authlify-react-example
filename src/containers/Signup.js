@@ -27,10 +27,18 @@ class Signup extends React.Component {
     }
   }
 
+  handleDataChange(field) {
+    return (e) => {
+      const state = this.state.data || {};
+      state[field] = e.target.value;
+      this.setState({data: state});
+    }
+  }
+
   handleSignup(e) {
-    const { email, password } = this.state;
+    const { email, password, data } = this.state;
     e.preventDefault();
-    this.props.dispatch(signup(email, password)).then(
+    this.props.dispatch(signup(email, password, data)).then(
       (success) => this.setState({success: true}),
       (error) => this.setState({error: error.msg || error.toString()})
     );
@@ -75,6 +83,14 @@ class Signup extends React.Component {
       <h2>Create an account</h2>
       <form onSubmit={this.handleSignup}>
         {error && <h3>Error signing up: {error}</h3>}
+        <p>
+          <label>First Name: </label>
+          <input onChange={this.handleDataChange('first_name')}/>
+        </p>
+        <p>
+          <label>Last Name: </label>
+          <input onChange={this.handleDataChange('last_name')}/>
+        </p>
         <p>
           <label>Email: </label>
           <input type="email" onChange={this.handleChange('email')}/>

@@ -7,7 +7,7 @@ import { updateUser } from '../actions/auth';
 class Index extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {};
+    this.state = props.user || {};
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handleToggleEdit = this.handleToggleEdit.bind(this);
   }
@@ -24,6 +24,14 @@ class Index extends React.Component {
     }
   }
 
+  handleDataChange(field) {
+    return (e) => {
+      const state = this.state.data || {};
+      state[field] = e.target.value;
+      this.setState({data: state});
+    }
+  }
+
   handleSubmit(e) {
     e.preventDefault();
     this.props.dispatch(updateUser(this.state)).then(
@@ -33,10 +41,18 @@ class Index extends React.Component {
   }
 
   form() {
-    const { error } = this.state;
+    const { error, data } = this.state;
 
     return <form onSubmit={this.handleSubmit}>
       {error && <h3>Error updating profile: {error}</h3>}
+      <p>
+        <label>First Name: </label>
+        <input onChange={this.handleDataChange('first_name')} value={data.first_name}/>
+      </p>
+      <p>
+        <label>Last Name: </label>
+        <input onChange={this.handleDataChange('last_name')} value={data.last_name}/>
+      </p>
       <p>
         <label>Email: </label>
         <input type="email" value={this.state.email} onChange={this.handleChange('email')}/>
@@ -55,6 +71,8 @@ class Index extends React.Component {
     const { user } = this.props;
 
     return <div>
+      <p>First Name: {user.data.first_name}</p>
+      <p>Last Name: {user.data.last_name}</p>
       <p>Email: {user.email}</p>
       <p>Created at: {user.created_at}</p>
     </div>;

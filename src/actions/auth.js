@@ -3,9 +3,9 @@ import Authlify from 'authlify-js';
 const authlify = new Authlify({APIUrl: 'http://localhost:9999'});
 
 export function loginSuccess(user) {
-  const { email, created_at, updated_at } = user;
+  const { email, data, created_at, updated_at } = user;
   return {type: 'LOGIN_SUCCESS', payload: {
-    email, created_at, updated_at,    
+    email, data, created_at, updated_at,
     tokenResponse: user.tokenResponse
   }};
 }
@@ -32,9 +32,9 @@ export function logout() {
   };
 }
 
-export function signup(email, password) {
+export function signup(email, password, data) {
   return (dispatch, getState) => {
-    return authlify.signup(email, password).then(
+    return authlify.signup(email, password, data).then(
       (success) => dispatch({type: 'SIGNUP_SUCCESS'})
     );
   };
@@ -68,7 +68,7 @@ export function updateUser(updates) {
   return (dispatch, getState) => {
     const { tokenResponse } = getState().auth;
     const user = authlify.user(tokenResponse);
-    return user.update({email: updates.email, password: updates.password}).then(
+    return user.update({email: updates.email, password: updates.password, data: updates.data}).then(
       (user) => dispatch(loginSuccess(user))
     );
   }

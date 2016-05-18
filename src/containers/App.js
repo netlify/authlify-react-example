@@ -2,7 +2,6 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router';
 import { logout } from '../actions/auth';
-import Profile from '../components/Profile';
 
 class App extends React.Component {
   constructor(props) {
