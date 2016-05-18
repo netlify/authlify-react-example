@@ -32,7 +32,7 @@ class Signup extends React.Component {
     e.preventDefault();
     this.props.dispatch(signup(email, password)).then(
       (success) => this.setState({success: true}),
-      (error) => this.setState({error:error})
+      (error) => this.setState({error: error.msg || error.toString()})
     );
   }
 

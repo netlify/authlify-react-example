@@ -3,10 +3,11 @@ import { render } from 'react-dom';
 import { createStore, combineReducers, applyMiddleware, compose } from 'redux'
 import { Provider } from 'react-redux'
 import thunk from 'redux-thunk';
-import { Router, Route, browserHistory } from 'react-router'
+import { Router, Route, IndexRoute, browserHistory } from 'react-router'
 import { syncHistoryWithStore, routerReducer, routerMiddleware } from 'react-router-redux'
 import { auth } from './reducers/auth'
 import App from './containers/App';
+import Index from './containers/Index';
 import Login from './containers/Login';
 import Signup from './containers/Signup';
 import Amnesia from './containers/Amnesia';
@@ -28,6 +29,7 @@ render(
   <Provider store={store}>
     <Router history={history}>
       <Route path="/" component={App}>
+        <IndexRoute component={Index}/>
         <Route path="/login" component={Login}/>
         <Route path="/signup" component={Signup}/>
         <Route path="/amnesia" component={Amnesia}/>

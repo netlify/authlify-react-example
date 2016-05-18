@@ -31,11 +31,12 @@ class Login extends React.Component {
   }
 
   handleLoginSuccess() {
-    this.props.dispatch(push('/'))
+    this.props.dispatch(push('/'));
   }
 
   handleLoginError(error) {
-    this.setState({error: error.description});
+    console.log('error %o', error);
+    this.setState({error: error.description || error.toString()});
   }
 
   render() {
